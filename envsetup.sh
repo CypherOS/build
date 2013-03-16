@@ -348,13 +348,15 @@ function addcompletions()
         return
     fi
 
-    dir="sdk/bash_completion"
+    dirs="sdk/bash_completion vendor/aoscp/bash_completion"
+    for dir in $dirs; do
     if [ -d ${dir} ]; then
         for f in `/bin/ls ${dir}/[a-z]*.bash 2> /dev/null`; do
             echo "including $f"
             . $f
         done
     fi
+	done
 
     complete -C "bit --tab" bit
 }
