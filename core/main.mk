@@ -215,8 +215,9 @@ $(info The required version is: $(required_version))
 $(info $(space))
 $(info Please follow the machine setup instructions at)
 $(info $(space)$(space)$(space)$(space)https://source.android.com/source/initializing.html)
+$(info $(space))
+$(info Continue at your own peril!)
 $(info ************************************************************)
-# $(error stop)
 endif
 
 KNOWN_INCOMPATIBLE_JAVAC_VERSIONS := google
