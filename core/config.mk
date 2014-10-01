@@ -183,6 +183,10 @@ include $(BUILD_SYSTEM)/envsetup.mk
 # See envsetup.mk for a description of SCAN_EXCLUDE_DIRS
 FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 
+# General entries for project pathmap.  Any entries listed here should
+# be device and hardware independent.
+$(call project-set-path-variant,recovery,RECOVERY_VARIANT,bootable/recovery)
+
 # The build system exposes several variables for where to find the kernel
 # headers:
 #   TARGET_DEVICE_KERNEL_HEADERS is automatically created for the current
