@@ -2246,9 +2246,17 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE)
 AOSCP_TARGET_PACKAGE := $(PRODUCT_OUT)/$(AOSCP_TARGET_ZIP).zip
 AOSCP_TARGET_PACKAGE_FOLDER := $(PRODUCT_OUT)
 
-.PHONY: otapackage bacon rainbowfarts
-otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
+BOOT_ZIP_FROM_IMAGE_SCRIPT := ./build/tools/releasetools/boot_flash_from_image
+KERNEL_PATH := $(TARGET_KERNEL_SOURCE)/arch/arm/configs/$(TARGET_KERNEL_CONFIG)
 
+.PHONY: bootzip otapackage bacon
+bootzip: bootimage
+	$(BOOT_ZIP_FROM_IMAGE_SCRIPT) \
+	   $(recovery_fstab) \
+	   $(OUT) \
+	   $(TARGET_DEVICE)
+
+otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(AOSCP_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(AOSCP_TARGET_PACKAGE) > $(AOSCP_TARGET_PACKAGE).md5sum
