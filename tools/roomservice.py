@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 # Copyright (C) 2012-16, The CyanogenMod Project
 # Copyright (C) 2016, AOKP
+# Copyright (C) 2016, AOSCP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -127,13 +128,12 @@ def add_to_local_manifest(path, name, remote, branch=None):
     if (remote == "cm"):
         if (branch == None):
             branch = "cm-14.0"
-        if not (name.find("CyanogenMod/") == 0):
-            name = "CyanogenMod/" + name
+    if (remote == "cypher"):
+        if (branch == None):
+            branch = "n7.0"
     if (remote == "aokp"):
         if (branch == None):
             branch = "nougat"
-        if not (name.find("AOKP/") == 0):
-            name = "AOKP/" + name
 
     if is_path_in_manifest(path, name, remote, branch):
         # Error messages are present in the called function, so just exit
@@ -150,7 +150,7 @@ def add_to_local_manifest(path, name, remote, branch=None):
 
 
 def get_from_github(device):
-        print("Going to fetch %s from AOKP github" % device)
+        print("Going to fetch %s from AOSCP github" % device)
         try:
             authtuple = netrc.netrc().authenticators("api.github.com")
 
@@ -162,7 +162,7 @@ def get_from_github(device):
         except:
             githubauth = None
 
-        githubreq = urllib.request.Request("https://api.github.com/search/repositories?q=%s+user:AOKP+in:name+fork:true" % device)
+        githubreq = urllib.request.Request("https://api.github.com/search/repositories?q=%s+user:CypherOS+in:name+fork:true" % device)
         if githubauth:
             githubreq.add_header("Authorization","Basic %s" % githubauth)
 
@@ -179,14 +179,15 @@ def get_from_github(device):
             if (res['name'].startswith("device_") and res['name'].endswith("_%s" % device)):
                 print("Found %s" % res['name'])
                 devicepath = res['name'].replace("_","/")
-                if add_to_local_manifest(devicepath, res['full_name'], "aokp"):
+                if add_to_local_manifest(devicepath, res['full_name'], "aoscp"):
                     reposync(res['full_name'])
                 break
 
 def checkdeps(repo_path):
     cmdeps = glob.glob(repo_path + "/cm.dependencies")
     aokpdeps = glob.glob(repo_path + "/aokp.dependencies")
-    if ((len(cmdeps) + len(aokpdeps)) < 1):
+    aoscpdeps = glob.glob(repo_path + "/aoscp.dependencies")
+    if ((len(cmdeps) + len(aokpdeps) + len(aoscpdeps)) < 1):
         ran_checkdeps_on.append("NO_DEPS:\t\t" + repo_path)
         return
     else:
@@ -208,7 +209,6 @@ def checkdeps(repo_path):
                     reposync(dep['target_path'])
                 checkdeps(dep['target_path'])
 
-
         if (len(aokpdeps) > 0):
             ran_checkdeps_on.append("HAS_AOKP_DEPS:\t" + repo_path)
             aokpdeps = aokpdeps[0]
@@ -223,6 +223,24 @@ def checkdeps(repo_path):
                     remote = dep['remote']
                 except:
                     remote = "aokp"
+                if add_to_local_manifest(dep['target_path'], dep['repository'], remote, branch):
+                    reposync(dep['target_path'])
+                checkdeps(dep['target_path'])
+
+        if (len(aoscpdeps) > 0):
+            ran_checkdeps_on.append("HAS_AOSCP_DEPS:\t" + repo_path)
+            aoscpdeps = aoscpdeps[0]
+            aoscpdeps = open(aoscpdeps, 'r')
+            aoscpdeps = json.loads(aoscpdeps.read())
+            for dep in aoscpdeps:
+                try:
+                    branch = dep['branch']
+                except:
+                    branch = None
+                try:
+                    remote = dep['remote']
+                except:
+                    remote = "cypher"
                 if add_to_local_manifest(dep['target_path'], dep['repository'], remote, branch):
                     reposync(dep['target_path'])
                 checkdeps(dep['target_path'])

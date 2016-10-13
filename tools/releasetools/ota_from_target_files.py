@@ -665,23 +665,23 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   system_progress = 0.75
 
   script.Print("******************************************");
-  script.Print("*    ______  _____   __  __   _____      *");
-  script.Print("*   /\\  _  \\/\\  __`\\/\\ \\/\\ \\ /\\  _ `\\    *");
-  script.Print("*   \\ \\ \\L\\ \\ \\ \\/\\ \\ \\ \\/'/'\\ \\ \\L\\ \\   *");
-  script.Print("*    \\ \\  __ \\ \\ \\ \\ \\ \\ , <  \\ \\ ,__/   *");
-  script.Print("*     \\ \\ \\/\\ \\ \\ \\_\\ \\ \\ \\\\\\`\\ \\ \\ \\/    *");
-  script.Print("*      \\ \\_\\ \\_\\ \\_____\\ \\_\\ \\_\\\\\\ \\_\\    *");
-  script.Print("*       \\/_/\\/_/\\/_____/\\/_/\\/_/ \\/_/    *");
-  script.Print("*                                        *");
-  script.Print("*                         http://aokp.co *");
+  script.Print("       d8 .d888b. .d888b.  .d88b. 88888b. ");
+  script.Print("      d88d8P' 'Y8bdP  Y88bd8P  Y8b88   Y8b");
+  script.Print("     dP8888     88Yb.     88    8888    88");
+  script.Print("    dP 8888     88 'Y8b.  88      88   d8P");
+  script.Print("   dP  8888     88   'Y8b.88      88888P' ");
+  script.Print("  dP   8888     88     '8888    8888      ");
+  script.Print(" d8888888Y8b. .d8PY8b  d8PY8b  d8P88      ");
+  script.Print("dP     88 'Y888P'  'Y88P'  'Y88P' 88      ");
+  script.Print("-------------------[ http://cypheros.co ]-");
   script.Print("******************************************");
 
-  aokpv = GetBuildProp("ro.aokp.version", OPTIONS.info_dict)
-  if os.getenv("AOKP_BUILD") is not None:
-    build = ' '.join(aokpv.split('_')[3].split('-')).title()
+  aoscpv = GetBuildProp("ro.aoscpp.version", OPTIONS.info_dict)
+  if os.getenv("AOSCP_BUILD") is not None:
+    build = ' '.join(aoscpv.split('_')[3].split('-')).title()
     script.Print("*   Version: %s"%(build));
-  elif os.getenv("AOKP_BUILDTYPE") is not None:
-    build = ' '.join(aokpv.split('_')[2:]).title()
+  elif os.getenv("AOSCP_BUILDTYPE") is not None:
+    build = ' '.join(aoscpv.split('_')[2:]).title()
     script.Print("*   Version: %s"%(build));
   else:
     build = GetBuildProp("ro.build.date", OPTIONS.info_dict)
@@ -690,7 +690,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Print("******************************************");
     script.Print("*   Compiled: %s"%(build));
 
-  device = GetBuildProp("ro.aokp.device", OPTIONS.info_dict)
+  device = GetBuildProp("ro.aoscp.device", OPTIONS.info_dict)
   brand = GetBuildProp("ro.product.brand", OPTIONS.info_dict)
   name = GetBuildProp("ro.product.name", OPTIONS.info_dict)
   script.Print("*   Device: %s %s (%s)"%(brand, name, device));
@@ -822,7 +822,7 @@ endif;
   common.ZipWriteStr(output_zip, "system/build.prop",
                      ""+input_zip.read("SYSTEM/build.prop"))
 
-  common.ZipWriteStr(output_zip, "META-INF/org/aokp/releasekey",
+  common.ZipWriteStr(output_zip, "META-INF/org/aoscp/releasekey",
                      ""+input_zip.read("META/releasekey.txt"))
 
 def WritePolicyConfig(file_name, output_zip):

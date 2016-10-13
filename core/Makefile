@@ -242,7 +242,7 @@ endif
 	$(hide) TARGET_BUILD_TYPE="$(TARGET_BUILD_VARIANT)" \
 			TARGET_BUILD_FLAVOR="$(TARGET_BUILD_FLAVOR)" \
 			TARGET_DEVICE="$(TARGET_VENDOR_DEVICE_NAME)" \
-			AOKP_DEVICE="$(TARGET_DEVICE)" \
+			AOSCP_DEVICE="$(TARGET_DEVICE)" \
 			PRODUCT_NAME="$(TARGET_VENDOR_PRODUCT_NAME)" \
 			PRODUCT_BRAND="$(PRODUCT_BRAND)" \
 			PRODUCT_DEFAULT_LOCALE="$(call get-default-product-locale,$(PRODUCT_LOCALES))" \
@@ -1027,8 +1027,8 @@ ifneq ($(OTA_PACKAGE_SIGNING_KEY),)
     PRODUCT_EXTRA_RECOVERY_KEYS := $(DEFAULT_SYSTEM_DEV_CERTIFICATE)
 else
     PRODUCT_EXTRA_RECOVERY_KEYS += \
-        build/target/product/security/aokp \
-        build/target/product/security/aokp-devkey
+        build/target/product/security/aoscp \
+        build/target/product/security/aoscp-devkey
 endif
 
 # Generate a file containing the keys that will be read by the
@@ -1286,7 +1286,7 @@ ifndef I_WANT_A_QUAIL_STAR
 ifneq ($(WITHOUT_CHECK_API),true)
 $(BUILT_SYSTEMIMAGE): checkapi
 ifneq ($(TARGET_DISABLE_CMSDK),true)
-$(BUILT_SYSTEMIMAGE): checkapi-cm
+#$(BUILT_SYSTEMIMAGE): checkapi-cm
 endif
 endif
 endif
@@ -2107,7 +2107,7 @@ endif
 ifeq ($(WITH_GMS),true)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
 else
-ifneq ($(AOKP_BUILD),)
+ifneq ($(AOSCP_BUILD),)
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := true
 else
     $(INTERNAL_OTA_PACKAGE_TARGET): backuptool := false
@@ -2145,32 +2145,34 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE)
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-AOKP_TARGET_PACKAGE := $(PRODUCT_OUT)/$(AOKP_VERSION).zip
-AOKP_TARGET_PACKAGE_FOLDER := $(PRODUCT_OUT)
+AOSCP_TARGET_PACKAGE := $(PRODUCT_OUT)/$(AOSCP_TARGET_ZIP).zip
+AOSCP_TARGET_PACKAGE_FOLDER := $(PRODUCT_OUT)
 
 .PHONY: otapackage bacon rainbowfarts
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 
 bacon: otapackage
-	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(AOKP_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(AOKP_TARGET_PACKAGE) > $(AOKP_TARGET_PACKAGE).md5sum
-rainbowfarts: bacon
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(AOSCP_TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(AOSCP_TARGET_PACKAGE) > $(AOSCP_TARGET_PACKAGE).md5sum
+pizza: bacon
 	@echo -e ""
-	@echo -e ${CL_CYN}"============================================================================"${CL_RST}
-	@echo -e ${CL_RED}"                    ______"${CL_MAG}"  _____"${CL_CYN}"   __  __"${CL_BLU}"   _____"${CL_RST}
-	@echo -e ${CL_RED}"                   /\\\\  _  \\\\"${CL_MAG}"/\\\\  __\`\\\\"${CL_CYN}"/\\\\ \\\\/\\\\ \\\\"${CL_BLU}" /\\\\  _ \`\\\\"${CL_RST}
-	@echo -e ${CL_RED}"                   \\\\ \\\\ \\\\L\\\\ \\\\"${CL_MAG}" \\\\ \\\\/\\\\ \\\\"${CL_CYN}" \\\\ \\\\/'/'"${CL_BLU}"\\\\ \\\\ \\\\L\\\\ \\\\"${CL_RST}
-	@echo -e ${CL_RED}"                    \\\\ \\\\  __ \\\\"${CL_MAG}" \\\\ \\\\ \\\\ \\\\"${CL_CYN}" \\\\ , <"${CL_BLU}"  \\\\ \\\\ ,__/"${CL_RST}
-	@echo -e ${CL_RED}"                     \\\\ \\\\ \\\\/\\\\ \\\\"${CL_MAG}" \\\\ \\\\_\\\\ \\\\"${CL_CYN}" \\\\ \\\\\\\\\`\\\\"${CL_BLU}" \\\\ \\\\ \\\\/"${CL_RST}
-	@echo -e ${CL_RED}"                      \\\\ \\\\_\\\\ \\\\_\\\\"${CL_MAG}" \\\\_____\\\\"${CL_CYN}" \\\\_\\\\ \\\\_\\\\"${CL_BLU}"\\\\ \\\\_\\\\"${CL_RST}
-	@echo -e ${CL_RED}"                       \\\\/_/\\\\/_/"${CL_MAG}"\\\\/_____/"${CL_CYN}"\\\\/_/\\\\/_/"${CL_BLU}" \\\\/_/"${CL_RST}
+	@echo -e ${CL_CYN}"==========================================================================="${CL_RST}
 	@echo -e ""
-	@echo -e ${CL_CYN}"=============================-Package complete-============================="${CL_RST}
-	@echo -e ${CL_CYN}"Folder : "${CL_MAG} $(AOKP_TARGET_PACKAGE_FOLDER)${CL_RST}
-	@echo -e ${CL_CYN}"ZipName: "${CL_MAG} $(subst $(AOKP_TARGET_PACKAGE_FOLDER)/,,$(AOKP_TARGET_PACKAGE))${CL_RST}
-	@echo -e ${CL_CYN}"MD5    : "${CL_MAG}" $(shell cat $(AOKP_TARGET_PACKAGE).md5sum | awk '{print $$1}')"${CL_RST}
-	@echo -e ${CL_CYN}"Size   : "${CL_MAG}" $(shell du -hs $(AOKP_TARGET_PACKAGE) | awk '{print $$1}')"${CL_RST}
-	@echo -e ${CL_CYN}"============================================================================"${CL_RST}
+	@echo -e ${CL_GRN}"8888888    "${CL_WHT}"       d8888 .d88888b.  .d8888b.  .d8888b. 8888888b. "${CL_GRN}"    8888888"${CL_RST}
+	@echo -e ${CL_GRN}"888        "${CL_WHT}"      d88888d88P' 'Y88bd88P  Y88bd88P  Y88b888   Y88b"${CL_GRN}"        888"${CL_RST}
+	@echo -e ${CL_GRN}"888        "${CL_WHT}"     d88P888888     888Y88b.     888    888888    888"${CL_GRN}"        888"${CL_RST}
+	@echo -e ${CL_GRN}"888        "${CL_WHT}"    d88P 888888     888 'Y888b.  888       888   d88P"${CL_GRN}"        888"${CL_RST}
+	@echo -e ${CL_GRN}"888        "${CL_WHT}"   d88P  888888     888    'Y88b.888       8888888P' "${CL_GRN}"        888"${CL_RST}
+	@echo -e ${CL_GRN}"888        "${CL_WHT}"  d88P   888888     888      '888888    888888       "${CL_GRN}"        888"${CL_RST}
+	@echo -e ${CL_GRN}"888        "${CL_WHT}" d8888888888Y88b. .d88PY88b  d88PY88b  d88P888       "${CL_GRN}"        888"${CL_RST}
+	@echo -e ${CL_GRN}"8888888    "${CL_WHT}"d88P     888 'Y88888P'  'Y8888P'  'Y8888P' 888       "${CL_GRN}"    8888888"${CL_RST}
+	@echo -e ""
+	@echo -e ${CL_CYN}"=============================-Package complete-============================"${CL_RST}
+	@echo -e ${CL_CYN}"Folder : "${CL_MAG} $(AOSCP_TARGET_PACKAGE_FOLDER)${CL_RST}
+	@echo -e ${CL_CYN}"ZipName: "${CL_MAG} $(subst $(AOSCP_TARGET_PACKAGE_FOLDER)/,,$(AOSCP_TARGET_PACKAGE))${CL_RST}
+	@echo -e ${CL_CYN}"MD5    : "${CL_MAG}" $(shell cat $(AOSCP_TARGET_PACKAGE).md5sum | awk '{print $$1}')"${CL_RST}
+	@echo -e ${CL_CYN}"Size   : "${CL_MAG}" $(shell du -hs $(AOSCP_TARGET_PACKAGE) | awk '{print $$1}')"${CL_RST}
+	@echo -e ${CL_CYN}"==========================================================================="${CL_RST}
 	@echo -e ""
 
 endif    # build_ota_package

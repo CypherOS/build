@@ -179,9 +179,9 @@ include $(BUILD_SYSTEM)/node_fns.mk
 include $(BUILD_SYSTEM)/product.mk
 include $(BUILD_SYSTEM)/device.mk
 
-# An AOKP build needs only the AOKP product makefiles.
-  ifneq ($(AOKP_DEVICE),)
-  all_product_configs := $(shell find device -path "*/$(AOKP_DEVICE)/aokp.mk")
+# An AOSCP build needs only the AOSCP product makefiles.
+  ifneq ($(AOSCP_DEVICE),)
+  all_product_configs := $(shell find device -path "*/$(AOSCP_DEVICE)/aoscp.mk")
 else
   ifneq ($(strip $(TARGET_BUILD_APPS)),)
   # An unbundled app build needs only the core product makefiles.
@@ -192,9 +192,9 @@ else
     # files in the tree.
     all_product_configs := $(get-all-product-makefiles)
   endif # TARGET_BUILD_APPS
-endif # AOKP_BUILD
+endif # AOSCP_BUILD
 
-ifeq ($(AOKP_DEVICE),)
+ifeq ($(AOSCP_DEVICE),)
 # Find the product config makefile for the current product.
 # all_product_configs consists items like:
 # <product_name>:<path_to_the_product_makefile>
