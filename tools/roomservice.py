@@ -179,8 +179,9 @@ def get_from_github(device):
             if (res['name'].startswith("device_") and res['name'].endswith("_%s" % device)):
                 print("Found %s" % res['name'])
                 devicepath = res['name'].replace("_","/")
-                if add_to_local_manifest(devicepath, res['full_name'], "aoscp"):
-                    reposync(res['full_name'])
+                devicetree = res['full_name'].replace("CypherOS/", "")
+                if add_to_local_manifest(devicepath, devicetree, "cypher"):
+                    reposync(devicetree)
                 break
 
 def checkdeps(repo_path):
