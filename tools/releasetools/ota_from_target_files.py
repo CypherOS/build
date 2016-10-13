@@ -676,7 +676,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.Print("-------------------[ http://cypheros.co ]-");
   script.Print("******************************************");
 
-  aoscpv = GetBuildProp("ro.aoscpp.version", OPTIONS.info_dict)
+  aoscpv = GetBuildProp("ro.aoscp.version", OPTIONS.info_dict)
   if os.getenv("AOSCP_BUILD") is not None:
     build = ' '.join(aoscpv.split('_')[3].split('-')).title()
     script.Print("*   Version: %s"%(build));
