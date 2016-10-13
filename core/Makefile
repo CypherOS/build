@@ -1286,7 +1286,7 @@ ifndef I_WANT_A_QUAIL_STAR
 ifneq ($(WITHOUT_CHECK_API),true)
 $(BUILT_SYSTEMIMAGE): checkapi
 ifneq ($(TARGET_DISABLE_CMSDK),true)
-#$(BUILT_SYSTEMIMAGE): checkapi-cm
+$(BUILT_SYSTEMIMAGE): checkapi-cm
 endif
 endif
 endif
