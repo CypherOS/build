@@ -664,20 +664,20 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
 
   system_progress = 0.75
 
-  script.Print("******************************************"
-  script.Print("   .. ..  \.../    ....    ....   . ...   "
-  script.Print(" d888.8b d88888b .d8888b..d8888b..888888b "
-  script.Print("d8P Y88bd8'   '88.88. '*'88'  '*'.88P 'Y8b"
-  script.Print("88   Y8bd8     88.88b.  '88.     .88    88"
-  script.Print("88   88bd8.    88 'Y88b '88.  .. .88    88"
-  script.Print("Y8b.d88bY8b. .d8P .. 888b88b..88b.88b .d8P"
-  script.Print(" Y888'8b Y88888P' Y8888P'Y88888P..888888P'"
-  script.Print("                                 .88'''   "
-  script.Print(" +=============================- .88 -=== "
-  script.Print("                                          "
-  script.Print("                   [ http://cypheros.co ] "
-  script.Print("                                          "
-  script.Print("******************************************"
+  script.Print("******************************************");
+  script.Print("   .. ..  \.../    ....    ....   . ...   ");
+  script.Print(" d888.8b d88888b .d8888b..d8888b..888888b ");
+  script.Print("d8P Y88bd8'   '88.88. '*'88'  '*'.88P 'Y8b");
+  script.Print("88   Y8bd8     88.88b.  '88.     .88    88");
+  script.Print("88   88bd8.    88 'Y88b '88.  .. .88    88");
+  script.Print("Y8b.d88bY8b. .d8P .. 888b88b..88b.88b .d8P");
+  script.Print(" Y888'8b Y88888P' Y8888P'Y88888P..888888P'");
+  script.Print("                                 .88'''   ");
+  script.Print(" +=============================- .88 -=== ");
+  script.Print("                                          ");
+  script.Print("                   [ http://cypheros.co ] ");
+  script.Print("                                          ");
+  script.Print("******************************************");
 
   aoscpv = GetBuildProp("ro.aoscp.version", OPTIONS.info_dict)
   if os.getenv("AOSCP_BUILD") is not None:
