@@ -127,7 +127,7 @@ def reposync(syncrepo):
 def add_to_local_manifest(path, name, remote, branch=None):
     if (remote == "cm"):
         if (branch == None):
-            branch = "cm-14.0"
+            branch = "cm-14.1"
     if (remote == "cypher"):
         if (branch == None):
             branch = "n7.1"
