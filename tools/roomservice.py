@@ -130,7 +130,7 @@ def add_to_local_manifest(path, name, remote, branch=None):
             branch = "cm-14.0"
     if (remote == "cypher"):
         if (branch == None):
-            branch = "n7.0"
+            branch = "n7.1"
     if (remote == "aokp"):
         if (branch == None):
             branch = "nougat"
