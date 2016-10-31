@@ -18,7 +18,6 @@
 Given a target-files zipfile that does not contain images (ie, does
 not have an IMAGES/ top-level subdirectory), produce the images and
 add them to the zipfile.
-
 Usage:  add_img_to_target_files target_files
 """
 
@@ -101,7 +100,7 @@ def AddSystemOther(output_zip, prefix="IMAGES/"):
 
   prebuilt_path = os.path.join(OPTIONS.input_tmp, prefix, "system_other.img")
   if os.path.exists(prebuilt_path):
-    print ("system_other.img already exists in %s, no need to rebuild..." % prefix)
+    print("system_other.img already exists in %s, no need to rebuild..." % prefix)
     return
 
   imgname = BuildSystemOther(OPTIONS.input_tmp, OPTIONS.info_dict)
@@ -119,7 +118,7 @@ def AddVendor(output_zip, prefix="IMAGES/"):
 
   prebuilt_path = os.path.join(OPTIONS.input_tmp, prefix, "vendor.img")
   if os.path.exists(prebuilt_path):
-    print "vendor.img already exists in %s, no need to rebuild..." % (prefix,)
+    print("vendor.img already exists in %s, no need to rebuild..." % prefix)
     return prebuilt_path
 
   block_list = common.MakeTempFile(prefix="vendor-blocklist-", suffix=".map")
@@ -215,7 +214,6 @@ def CreateImage(input_dir, info_dict, what, block_list=None):
 
 def AddUserdata(output_zip, prefix="IMAGES/"):
   """Create a userdata image and store it in output_zip.
-
   In most case we just create and store an empty userdata.img;
   But the invoker can also request to create userdata.img with real
   data from the target files, by setting "userdata_img_with_data=true"
@@ -375,7 +373,14 @@ def AddImagesToTargetFiles(filename):
   except KeyError:
     has_vendor = False
 
+  try:
+    input_zip.getinfo("OEM/")
+    has_oem = True
+  except KeyError:
+    has_oem = False
+
   has_system_other = "SYSTEM_OTHER/" in input_zip.namelist()
+
 
   OPTIONS.info_dict = common.LoadInfoDict(input_zip, OPTIONS.input_tmp)
 
