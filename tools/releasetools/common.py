@@ -323,7 +323,7 @@ def LoadRecoveryFSTab(read_helper, fstab_version, recovery_fstab_path,
   try:
     data = read_helper(recovery_fstab_path)
   except KeyError:
-    print "Warning: could not find {}".format(recovery_fstab_path)
+    print("Warning: could not find %s" % format(recovery_fstab_path))
     data = ""
 
   if fstab_version == 1:
