@@ -282,7 +282,7 @@ def LoadInfoDict(input_file, input_dir=None):
         recovery_fstab_path, system_root_image)
   elif d.get("recovery_as_boot", None) == "true":
     recovery_fstab_path = "BOOT/RAMDISK/etc/recovery.fstab"
-    d["fstab"] = LoadRecoveryFSTab(read_helper, d["fstab_version"],
+    d["fstab"] = LoadRecoveryFSTab(read_helper, d["fstab_version"], d["device_type"],
         recovery_fstab_path, system_root_image)
   else:
     d["fstab"] = None
@@ -309,7 +309,7 @@ def LoadDictionaryFromLines(lines):
       d[name] = value
   return d
 
-def LoadRecoveryFSTab(read_helper, fstab_version, recovery_fstab_path,
+def LoadRecoveryFSTab(read_helper, fstab_version, type, recovery_fstab_path,
                       system_root_image=False):
   class Partition(object):
     def __init__(self, mount_point, fs_type, device, length, device2, context):
