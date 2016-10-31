@@ -68,7 +68,7 @@ def AddSystem(output_zip, prefix="IMAGES/", recovery_img=None, boot_img=None):
 
   prebuilt_path = os.path.join(OPTIONS.input_tmp, prefix, "system.img")
   if os.path.exists(prebuilt_path):
-    print "system.img already exists in %s, no need to rebuild..." % (prefix,)
+    print("system.img already exists in %s, no need to rebuild..." % prefix)
     return prebuilt_path
 
   def output_sink(fn, data):
