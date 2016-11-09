@@ -267,6 +267,7 @@ ifneq ($(my_clang),true)
     my_compiler := gcc
 else
     my_compiler := clang
+endif
 
 ifeq ($(SDCLANG),true)
     ifeq ($(my_sdclang),)
