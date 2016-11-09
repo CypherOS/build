@@ -1843,10 +1843,10 @@ function addaoscp() {
         echo "Not a git repository."
         exit -1
     fi
-    REPO=$(cat .git/config  | grep git://github.com/AOSCP/ | awk '{ print $NF }' | sed s#git://github.com/##g)
+    REPO=$(cat .git/config  | grep git://github.com/CypherOS/ | awk '{ print $NF }' | sed s#git://github.com/##g)
     if [ -z "$REPO" ]
     then
-        REPO=$(cat .git/config  | grep https://github.com/AOSCP/ | awk '{ print $NF }' | sed s#https://github.com/##g)
+        REPO=$(cat .git/config  | grep https://github.com/CypherOS/ | awk '{ print $NF }' | sed s#https://github.com/##g)
         if [ -z "$REPO" ]
         then
           echo Unable to set up the git remote, are you in the root of the repo?
