@@ -128,7 +128,7 @@ def add_to_local_manifest(path, name, remote, branch=None):
     if (remote == "cm"):
         if (branch == None):
             branch = "cm-14.1"
-    if (remote == "cypher"):
+    if (remote == "aoscp"):
         if (branch == None):
             branch = "n7.1"
     if (remote == "aokp"):
@@ -180,7 +180,7 @@ def get_from_github(device):
                 print("Found %s" % res['name'])
                 devicepath = res['name'].replace("_","/")
                 devicetree = res['full_name'].replace("CypherOS/", "")
-                if add_to_local_manifest(devicepath, devicetree, "cypher"):
+                if add_to_local_manifest(devicepath, devicetree, "aoscp"):
                     reposync(devicetree)
                 break
 
@@ -241,7 +241,7 @@ def checkdeps(repo_path):
                 try:
                     remote = dep['remote']
                 except:
-                    remote = "cypher"
+                    remote = "aoscp"
                 if add_to_local_manifest(dep['target_path'], dep['repository'], remote, branch):
                     reposync(dep['target_path'])
                 checkdeps(dep['target_path'])
