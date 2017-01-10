@@ -1,0 +1,15 @@
+# Release name
+PRODUCT_RELEASE_NAME := _DEVICE_
+
+# Inherit some common AOSCP stuff.
+$(call inherit-product, vendor/aoscp/configs/common_full_phone.mk)
+
+# Inherit device configuration
+$(call inherit-product, device/_MANUFACTURER_/_DEVICE_/device_DEVICE_.mk)
+
+## Device identifier. This must come after all inclusions
+PRODUCT_DEVICE := _DEVICE_
+PRODUCT_NAME := aoscp_DEVICE_
+PRODUCT_BRAND := _MANUFACTURER_
+PRODUCT_MODEL := _DEVICE_
+PRODUCT_MANUFACTURER := _MANUFACTURER_

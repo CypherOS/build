@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # Copyright (C) 2012-16, The CyanogenMod Project
-# Copyright (C) 2016, AOKP
 # Copyright (C) 2016, AOSCP
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -125,15 +124,9 @@ def reposync(syncrepo):
 
 
 def add_to_local_manifest(path, name, remote, branch=None):
-    if (remote == "cm"):
-        if (branch == None):
-            branch = "cm-14.1"
     if (remote == "aoscp"):
         if (branch == None):
             branch = "n7.1"
-    if (remote == "aokp"):
-        if (branch == None):
-            branch = "nougat"
 
     if is_path_in_manifest(path, name, remote, branch):
         # Error messages are present in the called function, so just exit
@@ -185,49 +178,11 @@ def get_from_github(device):
                 break
 
 def checkdeps(repo_path):
-    cmdeps = glob.glob(repo_path + "/cm.dependencies")
-    aokpdeps = glob.glob(repo_path + "/aokp.dependencies")
     aoscpdeps = glob.glob(repo_path + "/aoscp.dependencies")
-    if ((len(cmdeps) + len(aokpdeps) + len(aoscpdeps)) < 1):
+    if ((len(aoscpdeps)) < 1):
         ran_checkdeps_on.append("NO_DEPS:\t\t" + repo_path)
         return
     else:
-        if (len(cmdeps) > 0):
-            ran_checkdeps_on.append("HAS_CM_DEPS:\t" + repo_path)
-            cmdeps = cmdeps[0]
-            cmdeps = open(cmdeps, 'r')
-            cmdeps = json.loads(cmdeps.read())
-            for dep in cmdeps:
-                try:
-                    branch = dep['branch']
-                except:
-                    branch = None
-                try:
-                    remote = dep['remote']
-                except:
-                    remote = "cm"
-                if add_to_local_manifest(dep['target_path'], dep['repository'], remote, branch):
-                    reposync(dep['target_path'])
-                checkdeps(dep['target_path'])
-
-        if (len(aokpdeps) > 0):
-            ran_checkdeps_on.append("HAS_AOKP_DEPS:\t" + repo_path)
-            aokpdeps = aokpdeps[0]
-            aokpdeps = open(aokpdeps, 'r')
-            aokpdeps = json.loads(aokpdeps.read())
-            for dep in aokpdeps:
-                try:
-                    branch = dep['branch']
-                except:
-                    branch = None
-                try:
-                    remote = dep['remote']
-                except:
-                    remote = "aokp"
-                if add_to_local_manifest(dep['target_path'], dep['repository'], remote, branch):
-                    reposync(dep['target_path'])
-                checkdeps(dep['target_path'])
-
         if (len(aoscpdeps) > 0):
             ran_checkdeps_on.append("HAS_AOSCP_DEPS:\t" + repo_path)
             aoscpdeps = aoscpdeps[0]

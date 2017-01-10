@@ -110,4 +110,4 @@ popd
 
 echo Done!
 echo Use the following command to set up your build environment:
-echo '  'lunch cm_$DEVICE-eng
+echo '  'lunch aoscp_$DEVICE-eng
