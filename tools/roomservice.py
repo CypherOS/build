@@ -126,7 +126,7 @@ def reposync(syncrepo):
 def add_to_local_manifest(path, name, remote, branch=None):
     if (remote == "aoscp"):
         if (branch == None):
-            branch = "n7.1"
+            branch = "nougat-mr1"
 
     if is_path_in_manifest(path, name, remote, branch):
         # Error messages are present in the called function, so just exit
