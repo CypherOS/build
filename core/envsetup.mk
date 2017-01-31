@@ -290,7 +290,7 @@ else
 OUT_DIR := $(CURDIR)/out
 endif
 else
-OUT_DIR := $(OUT_DIR_COMMON_BASE)/$(notdir $(PWD))
+OUT_DIR := $(OUT_DIR_COMMON_BASE:/=)/$(notdir $(PWD))
 endif
 endif
 
