@@ -699,9 +699,18 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
     script.Print("******************************************");
     script.Print("*   Compiled: %s"%(build));
 
-  model = GetBuildProp("ro.product.model", OPTIONS.info_dict)
+  model = False
+
+  if IsBuildProp("ro.product.model", OPTIONS.info_dict):
+    model = GetBuildProp("ro.product.model", OPTIONS.info_dict)
+
   device = GetBuildProp("ro.aoscp.device", OPTIONS.info_dict)
-  script.Print("*   Device: %s (%s)"%(model, device));
+
+  if model:
+    script.Print("*   Device: %s (%s)"%(model, device));
+  else:
+    script.Print("*   Device: %s (%s)"%(model, device));
+
   script.Print("******************************************");
 
   if OPTIONS.wipe_user_data:
@@ -863,6 +872,15 @@ def GetBuildProp(prop, info_dict):
     return info_dict.get("build.prop", {})[prop]
   except KeyError:
     raise common.ExternalError("couldn't find %s in build.prop" % (prop,))
+
+
+def IsBuildProp(prop, info_dict):
+  """Test if a variable is given in target-files info_dict."""
+  try:
+    info_dict.get("build.prop", {})[prop]
+    return True
+  except KeyError:
+    return False
 
 
 def AddToKnownPaths(filename, known_paths):
