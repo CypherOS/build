@@ -100,10 +100,14 @@ PRODUCT_BOOT_JARS := \
     ims-common \
     apache-xml \
     org.apache.http.legacy.boot
-
+	
 # The order of PRODUCT_SYSTEM_SERVER_JARS matters.
+PRODUCT_SYSTEM_SERVER_JARS := \
+    org.aoscp.framework \
+    org.aoscp.hardware \
+    services.aoscp
+
 PRODUCT_SYSTEM_SERVER_JARS += \
-    services.aoscp \
     services \
     ethernet-service \
     wifi-service
