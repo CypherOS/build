@@ -709,7 +709,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   if model:
     script.Print("*   Device: %s (%s)"%(model, device));
   else:
-    script.Print("*   Device: %s (%s)"%(model, device));
+    script.Print("*   Device: %s"%(device));
 
   script.Print("******************************************");
 
@@ -872,6 +872,14 @@ def GetBuildProp(prop, info_dict):
     return info_dict.get("build.prop", {})[prop]
   except KeyError:
     raise common.ExternalError("couldn't find %s in build.prop" % (prop,))
+
+def IsBuildProp(prop, info_dict):
+  """Test if a variable is given in target-files info_dict."""
+  try:
+    info_dict.get("build.prop", {})[prop]
+    return True
+  except KeyError:
+    return False
 
 
 def IsBuildProp(prop, info_dict):
