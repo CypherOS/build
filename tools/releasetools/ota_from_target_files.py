@@ -501,13 +501,13 @@ def _WriteRecoveryImageToBoot(script, output_zip):
     recovery_two_step_img = common.GetBootableImage(
         recovery_two_step_img_name, recovery_two_step_img_name,
         OPTIONS.input_tmp, "RECOVERY")
-    common.ZipWriteStr(
-        output_zip, recovery_two_step_img_name, recovery_two_step_img.data)
-    print "two-step package: using %s in stage 1/3" % (
-        recovery_two_step_img_name,)
+    common.ZipWriteStr(output_zip, recovery_two_step_img_name,
+        recovery_two_step_img.data)
+    print ("two-step package: using %s in stage 1/3" % 
+        recovery_two_step_img_name)
     script.WriteRawImage("/boot", recovery_two_step_img_name)
   else:
-    print "two-step package: using recovery.img in stage 1/3"
+    print ("two-step package: using recovery.img in stage 1/3")
     # The "recovery.img" entry has been written into package earlier.
     script.WriteRawImage("/boot", "recovery.img")
 
