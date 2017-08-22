@@ -669,6 +669,7 @@ function lunch()
         return 1
     fi
 
+	local device=$(echo -n $product | sed -e "s/.*aoscp_//")
     check_product $product
 
     TARGET_PRODUCT=$product \
@@ -680,11 +681,11 @@ function lunch()
 	    # If we can't find a product, try to grab it from our github
         T=$(gettop)
         pushd $T > /dev/null
-        build/tools/roomservice.py $product
+        build/tools/roomservice.py $device
         popd > /dev/null
         check_product $product
     else
-        build/tools/roomservice.py $product true
+        build/tools/roomservice.py $device
     fi
     if [ $? -ne 0 ]
     then
