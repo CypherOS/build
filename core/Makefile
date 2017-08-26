@@ -2528,14 +2528,34 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) \
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-AOSCP_TARGET_PACKAGE := $(PRODUCT_OUT)/aoscp_$(AOSCP_VERSION).zip
+export AOSCP_TARGET_PACKAGE := $(PRODUCT_OUT)/$(AOSCP_TARGET_ZIP).zip
 
 .PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(AOSCP_TARGET_PACKAGE)
 	$(hide) $(MD5SUM) $(AOSCP_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(AOSCP_TARGET_PACKAGE).md5sum
-	@echo "Package Complete: $(AOSCP_TARGET_PACKAGE)" >&2
+pizza: bacon
+    @echo -e ""
+	@echo -e ${CL_CYN}"==========================================================================="${CL_RST}
+	@echo -e ${CL_LBL}"                 "${CL_LGR}"  \\         /  "${CL_LRD}"             "${CL_LYL}"               "${CL_LMG}"                 "${CL_RST}
+	@echo -e ${CL_LBL}"    .++**++.+++. "${CL_LGR}"   \\++***++/   "${CL_LRD}"  .-++++++-. "${CL_LYL}"   .+*****+.   "${CL_LMG}".++..+++++..     "${CL_RST}
+	@echo -e ${CL_LBL}"  .************- "${CL_LGR}" .***********. "${CL_LRD}" +***+++***. "${CL_LYL}" .***********. "${CL_LMG}"+***********+.   "${CL_RST}
+	@echo -e ${CL_LBL}" .***+.   .+***- "${CL_LGR}".***+'   '****."${CL_LRD}".****-...    "${CL_LYL}".****.   -**+. "${CL_LMG}"+***.    -***+   "${CL_RST}
+	@echo -e ${CL_LBL}" +***.     .***- "${CL_LGR}"+***      .***-"${CL_LRD}" .+*******+. "${CL_LYL}"****.          "${CL_LMG}"+**+      -***.  "${CL_RST}
+	@echo -e ${CL_LBL}" '***+.   .+***- "${CL_LGR}"'***+.   .****."${CL_LRD}"  .. ..-****."${CL_LYL}"'****.   -**+. "${CL_LMG}"+***.    .***+   "${CL_RST}
+	@echo -e ${CL_LBL}"  '************- "${CL_LGR}" '**********+. "${CL_LRD}".+***++****+ "${CL_LYL}" '***********' "${CL_LMG}"+***********+    "${CL_RST}
+	@echo -e ${CL_LBL}"    '-++++-'-++' "${CL_LGR}"   '-++++--    "${CL_LRD}" .--++++--.  "${CL_LYL}"   '+*****-'   "${CL_LMG}"+**+.'++++'      "${CL_RST}
+	@echo -e "                                                            "${CL_LMG}"+**+             "${CL_RST}
+	@echo -e "                                                            "${CL_LMG}"-**-             "${CL_RST}
+ 	@echo -e ""
+ 	@echo -e ${CL_CYN}"=============================-Package complete-============================"${CL_RST}
+ 	@echo -e ${CL_CYN}"Folder : "${CL_MAG} $(AOSCP_TARGET_PACKAGE_FOLDER)${CL_RST}
+ 	@echo -e ${CL_CYN}"ZipName: "${CL_MAG} $(subst $(AOSCP_TARGET_PACKAGE_FOLDER)/,,$(AOSCP_TARGET_PACKAGE))${CL_RST}
+ 	@echo -e ${CL_CYN}"MD5    : "${CL_MAG}" $(shell cat $(AOSCP_TARGET_PACKAGE).md5sum | awk '{print $$1}')"${CL_RST}
+ 	@echo -e ${CL_CYN}"Size   : "${CL_MAG}" $(shell du -hs $(AOSCP_TARGET_PACKAGE) | awk '{print $$1}')"${CL_RST}
+ 	@echo -e ${CL_CYN}"==========================================================================="${CL_RST}
+  	@echo -e ""
 
 endif    # build_ota_package
 
