@@ -264,7 +264,7 @@ endif
 dataclean: FILES := $(dataclean_files)
 dataclean:
 	$(hide) rm -rf $(FILES)
-	@echo "Deleted emulator userdata images."
+	@echo -e ${CL_GRN}"Deleted images and staging directories."${CL_RST}
 
 .PHONY: installclean
 installclean: FILES := $(installclean_files)
