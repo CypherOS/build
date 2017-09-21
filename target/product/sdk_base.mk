@@ -24,19 +24,10 @@ PRODUCT_PACKAGES := \
 	Development \
 	Dialer \
 	EmulatorSmokeTests \
-	Gallery2 \
 	GestureBuilder \
-	Launcher3 \
-	Camera2 \
 	librs_jni \
-	libwnndict \
-	libWnnEngDic \
-	libWnnJpnDic \
 	LiveWallpapersPicker \
 	Mms \
-	Music \
-	OpenWnn \
-	Protips \
 	rild \
 	screenrecord \
 	SdkSetup \
@@ -115,14 +106,6 @@ $(call inherit-product-if-exists, external/roboto-fonts/fonts.mk)
 $(call inherit-product-if-exists, frameworks/base/data/keyboards/keyboards.mk)
 $(call inherit-product-if-exists, frameworks/webview/chromium/chromium.mk)
 $(call inherit-product, $(SRC_TARGET_DIR)/product/core.mk)
-
-# include available languages for TTS in the system image
--include external/svox/pico/lang/PicoLangDeDeInSystem.mk
--include external/svox/pico/lang/PicoLangEnGBInSystem.mk
--include external/svox/pico/lang/PicoLangEnUsInSystem.mk
--include external/svox/pico/lang/PicoLangEsEsInSystem.mk
--include external/svox/pico/lang/PicoLangFrFrInSystem.mk
--include external/svox/pico/lang/PicoLangItItInSystem.mk
 
 # locale. en_US is both first and in alphabetical order to
 # ensure this is the default locale.
