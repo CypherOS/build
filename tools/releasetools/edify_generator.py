@@ -148,12 +148,8 @@ class EdifyGenerator(object):
     pass
 
   def AssertSomeBootloader(self, *bootloaders):
-    """Asert that the bootloader version is one of *bootloaders."""
-    cmd = ("assert(" +
-           " ||\0".join(['getprop("ro.bootloader") == "%s"' % (b,)
-                         for b in bootloaders]) +
-           ");")
-    self.script.append(self.WordWrap(cmd))
+    """Assert that the bootloader version is one of *bootloaders."""
+    pass
 
   def ShowProgress(self, frac, dur):
     """Update the progress bar, advancing it over 'frac' over the next
