@@ -1611,14 +1611,7 @@ function godir () {
 }
 
 function mka() {
-    case `uname -s` in
-        Darwin)
-            m -j "$@"
-            ;;
-        *)
-            mk_timer schedtool -B -n 10 -e ionice -n 7 m -j "$@"
-            ;;
-    esac
+    m -j "$@"
 }
 
 # Force JAVA_HOME to point to java 1.7/1.8 if it isn't already set.
