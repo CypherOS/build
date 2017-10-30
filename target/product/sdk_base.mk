@@ -25,7 +25,6 @@ PRODUCT_PACKAGES := \
 	Dialer \
 	EmulatorSmokeTests \
 	Fallback \
-	Gallery2 \
 	GestureBuilder \
 	Launcher3 \
 	librs_jni \
