@@ -44,6 +44,7 @@ $(SOONG_VARIABLES): FORCE
 	echo '    "SanitizeDeviceDiag": $(call json_list,$(SANITIZE_TARGET_DIAG)),'; \
 	echo '    "SanitizeDeviceArch": $(call json_list,$(SANITIZE_TARGET_ARCH)),'; \
 	echo '    "HostStaticBinaries": $(if $(strip $(BUILD_HOST_static)),true,false),'; \
+	echo '    "Use_legacy_rescaling": $(if $(strip $(TARGET_OMX_LEGACY_RESCALING)),true,false),'; \
 	echo '    "Binder32bit": $(if $(BINDER32BIT),true,false),'; \
 	echo '    "DevicePrefer32BitExecutables": $(if $(filter true,$(TARGET_PREFER_32_BIT_EXECUTABLES)),true,false),'; \
 	echo '    "UseGoma": $(if $(filter-out false,$(USE_GOMA)),true,false),'; \
@@ -81,6 +82,8 @@ $(SOONG_VARIABLES): FORCE
 	echo '    "EnableCFI": $(if $(filter false,$(ENABLE_CFI)),false,true),'; \
 	echo '    "Has_legacy_camera_hal1": $(if $(filter true,$(TARGET_HAS_LEGACY_CAMERA_HAL1)),true,false),'; \
 	echo '    "Needs_text_relocations": $(if $(filter true,$(TARGET_NEEDS_PLATFORM_TEXT_RELOCATIONS)),true,false),'; \
+	echo '    "Cant_reallocate_omx_buffers": $(if $(filter true,$(TARGET_CANT_REALLOCATE_OMX_BUFFERS)),true,false),'; \
+	echo '    "Qcom_bsp_legacy": $(if $(filter true,$(TARGET_USES_QCOM_BSP_LEGACY)),true,false),'; \
 	echo '    "IntegerOverflowExcludePaths": $(call json_list,$(INTEGER_OVERFLOW_EXCLUDE_PATHS) $(PRODUCT_INTEGER_OVERFLOW_EXCLUDE_PATHS)),'; \
 	echo '    "Device_uses_hwc2": $(if $(filter true,$(TARGET_USES_HWC2)),true,false),'; \
 	echo '    "Override_rs_driver": "$(OVERRIDE_RS_DRIVER)",'; \
