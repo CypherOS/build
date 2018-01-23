@@ -2759,8 +2759,14 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) \
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
 	   $(BUILT_TARGET_FILES_PACKAGE) $@
 
-.PHONY: otapackage
+AOSCP_TARGET_PACKAGE := $(PRODUCT_OUT)/aoscp_$(AOSCP_VERSION)
+
+.PHONY: otapackage bacon
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
+bacon: otapackage
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(AOSCP_TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(AOSCP_TARGET_PACKAGE) | sed "s|$(PRODUCT_OUT)/||" > $(AOSCP_TARGET_PACKAGE).md5sum
+	@echo "Package Complete: $(AOSCP_TARGET_PACKAGE)" >&2
 
 endif    # build_ota_package
 
