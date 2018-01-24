@@ -978,6 +978,12 @@ $(eval include vendor/aoscp-sepolicy/common/sepolicy.mk)
 # Include any vendor specific config.mk file
 -include $(TOPDIR)vendor/aoscp-build/core/config.mk
 
+# DT Image support
+-include $(TOPDIR)vendor/aoscp-build/task/dt_image.mk
+
+# Kernel configurations
+-include $(TOPDIR)vendor/aoscp-build/task/kernel.mk
+
 # Rules for QCOM targets
 -include $(TOPDIR)vendor/aoscp-build/core/qcom_target.mk
 
