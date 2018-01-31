@@ -24,7 +24,6 @@ PRODUCT_PACKAGES := \
 	Development \
 	Dialer \
 	EmulatorSmokeTests \
-	Gallery2 \
 	GestureBuilder \
 	Launcher3 \
 	Camera2 \
@@ -34,7 +33,6 @@ PRODUCT_PACKAGES := \
 	libWnnJpnDic \
 	LiveWallpapersPicker \
 	Mms \
-	Music \
 	OpenWnn \
 	Protips \
 	rild \
