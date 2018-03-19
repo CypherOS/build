@@ -94,5 +94,5 @@ FRAMEWORKS_BASE_JAVA_SRC_DIRS := \
 	$(addprefix frameworks/base/,$(FRAMEWORKS_BASE_SUBDIRS))
 
 ifneq ($(AOSCP_BUILD),)
--include $(TOPDIR)vendor/aoscp-build/core/pathmap.mk
+-include $(TOPDIR)vendor/aoscp/build/core/pathmap.mk
 endif

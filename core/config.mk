@@ -973,16 +973,16 @@ endif
 ifneq ($(AOSCP_BUILD),)
 ## We need to be sure the global selinux policies are included
 ## last, to avoid accidental resetting by device configs
-$(eval include vendor/aoscp-sepolicy/common/sepolicy.mk)
+$(eval include vendor/aoscp/sepolicy/common/sepolicy.mk)
 
 # Include any vendor specific config.mk file
--include $(TOPDIR)vendor/aoscp-build/core/config.mk
+-include $(TOPDIR)vendor/aoscp/build/core/config.mk
 
 # Rules for QCOM targets
--include $(TOPDIR)vendor/aoscp-build/core/qcom_target.mk
+-include $(TOPDIR)vendor/aoscp/build/core/qcom_target.mk
 
 # Rules for MTK targets
--include $(TOPDIR)vendor/aoscp-build/core/mtk_target.mk
+-include $(TOPDIR)vendor/aoscp/build/core/mtk_target.mk
 endif
 
 include $(BUILD_SYSTEM)/dumpvar.mk
