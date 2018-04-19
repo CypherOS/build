@@ -170,7 +170,7 @@ include $(BUILD_SYSTEM)/device.mk
 
 # A CypherOS build needs only the CypherOS product makefiles.
 ifneq ($(AOSCP_BUILD),)
-  all_product_configs := $(shell find device -path "*/$(AOSCP_BUILD)/aoscp.mk")
+  all_product_configs := $(shell find -L device -path "*/$(AOSCP_BUILD)/aoscp.mk")
 else
   ifneq ($(strip $(TARGET_BUILD_APPS)),)
   # An unbundled app build needs only the core product makefiles.
