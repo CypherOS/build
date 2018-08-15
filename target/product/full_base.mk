@@ -40,8 +40,13 @@ PRODUCT_PACKAGES += \
 # Put en_US first in the list, so make it default.
 PRODUCT_LOCALES := en_US
 
+ifneq ($(AOSCP_BUILD),)
+# Get system audio files from vendor
+$(call inherit-product-if-exists, vendor/aoscp/sounds/SystemAudio.mk)
+else
 # Get some sounds
 $(call inherit-product-if-exists, frameworks/base/data/sounds/AllAudio.mk)
+endif
 
 # Get a list of languages.
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
