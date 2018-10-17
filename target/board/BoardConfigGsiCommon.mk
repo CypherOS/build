@@ -19,9 +19,11 @@ BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 67108864
 #   2) Sets AVB_VBMETA_IMAGE_FLAGS_VERIFICATION_DISABLED (--flag 2) in
 #      vbmeta.img to disable AVB verification.
 #
-# To disable AVB for GSI, use the vbmeta.img and the GSI together.
+# To disable AVB for GSI, use the vbmeta.img and the GSI together or set
+# BOARD_BUILD_DISABLED_VBMETAIMAGE to true in the devices BoardConfig.
 # To enable AVB for GSI, include the GSI public key into the device-specific
 # vbmeta.img.
+ifneq ($(BOARD_BUILD_DISABLED_VBMETAIMAGE),true)
 BOARD_AVB_ENABLE := true
 BOARD_AVB_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flag 2
@@ -31,6 +33,7 @@ BOARD_AVB_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa2048.pem
 BOARD_AVB_SYSTEM_ALGORITHM := SHA256_RSA2048
 BOARD_AVB_SYSTEM_ROLLBACK_INDEX := $(PLATFORM_SECURITY_PATCH_TIMESTAMP)
 BOARD_AVB_SYSTEM_ROLLBACK_INDEX_LOCATION := 1
+endif
 
 ifneq (,$(filter userdebug eng,$(TARGET_BUILD_VARIANT)))
 # GSI is always userdebug and needs a couple of properties taking precedence
