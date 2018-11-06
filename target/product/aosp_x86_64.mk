@@ -14,13 +14,6 @@
 # limitations under the License.
 #
 
-# The system image of aosp_x86_64-userdebug is a GSI for the devices with:
-# - x86 64 bits user space
-# - 64 bits binder interface
-# - system-as-root
-# - VNDK enforcement
-# - compatible property override enabled
-
 # This is a build configuration for a full-featured build of the
 # Open-Source part of the tree. It's geared toward a US-centric
 # build quite specifically for the emulator, and might not be
