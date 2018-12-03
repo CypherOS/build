@@ -133,6 +133,7 @@ endif
 
 # The order of PRODUCT_SYSTEM_SERVER_JARS matters.
 PRODUCT_SYSTEM_SERVER_JARS := \
+    hardware.aoscp.controllers \
     services \
     ethernet-service \
     wifi-service \
