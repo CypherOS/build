@@ -139,7 +139,6 @@ function check_product()
     fi
     if (echo -n $1 | grep -q -e "^aoscp_") ; then
         AOSCP_BUILD=$(echo -n $1 | sed -e 's/^aoscp_//g')
-        export BUILD_NUMBER=$( (date +%s%N ; echo $AOSCP_BUILD; hostname) | openssl sha1 | sed -e 's/.*=//g; s/ //g' | cut -c1-10 )
     else
         AOSCP_BUILD=
     fi
