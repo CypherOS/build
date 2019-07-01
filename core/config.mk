@@ -226,7 +226,11 @@ FIND_LEAVES_EXCLUDES := $(addprefix --prune=, $(SCAN_EXCLUDE_DIRS) .repo .git)
 
 # General entries for project pathmap.  Any entries listed here should
 # be device and hardware independent.
+ifeq ($(TARGET_RIL_VARIANT),caf)
+$(call project-set-path,qcom-ril,hardware/qcom/ril/$(TARGET_BOARD_PLATFORM))
+else
 $(call project-set-path-variant,ril,TARGET_RIL_VARIANT,hardware/ril)
+endif
 
 -include vendor/extra/BoardConfigExtra.mk
 ifneq ($(AOSCP_BUILD),)
